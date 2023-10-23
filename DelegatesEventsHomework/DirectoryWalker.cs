@@ -1,6 +1,6 @@
 ﻿namespace DelegatesEventsHomework
 {
-    public class DirectoryWalker
+    public class DirectoryWalker : IDisposable
     {
         public event EventHandler<FileEventArgs> FileFound;
 
@@ -10,6 +10,11 @@
         {
             _directoryPath = directoryPath;
             FileFound += DirectoryWalker_FileFound;
+        }
+
+        public void Dispose()
+        {
+            FileFound -= DirectoryWalker_FileFound;
         }
 
         private void DirectoryWalker_FileFound(object? sender, FileEventArgs e)
